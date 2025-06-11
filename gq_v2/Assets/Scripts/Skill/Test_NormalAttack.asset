@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Type: 0
   activateCount: 0
+  skillDamage: 0
   skillDelay: 0.5
   skill_Property:
   - particle: {fileID: 3676509547047880254, guid: 1d63610bc26a52643a4904f459435445, type: 3}
@@ -23,6 +24,8 @@ MonoBehaviour:
     intiPosition: 0
     skillForceDuration: 0.25
     skillForce: 0.15
+    knockbackForce: 0.25
+    knockbackDuration: 0.15
   - particle: {fileID: 3676509547047880254, guid: 1d63610bc26a52643a4904f459435445, type: 3}
     initPrefabTime: 0.333
     animationController: {fileID: 22100000, guid: 20598a3cdbd0eb04e84bb1f0fce430ec, type: 2}
@@ -30,6 +33,8 @@ MonoBehaviour:
     intiPosition: 0
     skillForceDuration: 0.25
     skillForce: 0.15
+    knockbackForce: 0.25
+    knockbackDuration: 0.15
   aimAssist: 1
   aimAssistRange: 3
   projectileSpeed: 100

@@ -396,7 +396,7 @@ public class PlayerManager : Singleton<PlayerManager>
             if (skill is Skill_Projectile projectile)
             {
                 Projectile_Object projectile_Object = particleObj.GetComponent<Projectile_Object>();
-                projectile_Object.SetupProjectile(projectile.projectileSpeed, projectile.projectileDuration, dir);
+                projectile_Object.SetupProjectile(skill.skillDamage, projectile.projectileSpeed, projectile.projectileDuration, dir, property.knockbackForce, property.knockbackDuration);
             }
             else if (skill is Skill_BuffPlayer buffPlayer)
             {

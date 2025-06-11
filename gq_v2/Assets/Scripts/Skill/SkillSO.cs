@@ -7,6 +7,8 @@ public class SkillSO : ScriptableObject
 {
     public SkillType Type;
     [HideInInspector] public int activateCount;
+    [Header("===== Damage =====")]
+    public int skillDamage;
     [Header("===== Delay =====")]
     public float skillDelay;
     [Header("===== Propertyu =====")]
@@ -30,5 +32,7 @@ public class Skill_Visual_Property
     [Header("===== Skill Force =====")]
     public float skillForceDuration;
     public float skillForce;
-
+    [Header("===== Knock back Force =====")]
+    public float knockbackForce;
+    public float knockbackDuration;
 }
