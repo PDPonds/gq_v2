@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 100068224}
   - component: {fileID: 100068223}
   - component: {fileID: 100068222}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -529,6 +529,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef78e176798692a46bea33a910e37a7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mousePositionMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0

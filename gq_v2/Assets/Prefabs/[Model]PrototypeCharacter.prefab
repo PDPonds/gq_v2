@@ -1,5 +1,67 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6961239351109510818
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6991990668185964820}
+  m_Layer: 0
+  m_Name: Body_Skill_Position
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6991990668185964820
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6961239351109510818}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1655543402488600724}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8070973618976732865
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8031676568734121500}
+  m_Layer: 0
+  m_Name: Hand_Skill_Position
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8031676568734121500
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8070973618976732865}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1655543402488600724}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1257369124228464511
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -62,7 +124,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: f3f2bd5280d48614c82977488f103063, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8031676568734121500}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: f3f2bd5280d48614c82977488f103063, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6991990668185964820}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f3f2bd5280d48614c82977488f103063, type: 3}
       insertIndex: -1
@@ -77,6 +145,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 6013501825983707341}
   m_SourcePrefab: {fileID: 100100000, guid: f3f2bd5280d48614c82977488f103063, type: 3}
+--- !u!4 &1655543402488600724 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f3f2bd5280d48614c82977488f103063, type: 3}
+  m_PrefabInstance: {fileID: 1257369124228464511}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2139908422603325998 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: f3f2bd5280d48614c82977488f103063, type: 3}
@@ -147,9 +220,12 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: f93450c6718a96b4bb588cec95c3167d, type: 2}
   moveInput: {x: 0, y: 0}
   isRun: 0
+  mousePosition: {x: 0, y: 0}
   rb: {fileID: 0}
   anim: {fileID: 0}
   col: {fileID: 0}
+  Hand_Skill_Position: {fileID: 8031676568734121500}
+  Body_Skill_Position: {fileID: 6991990668185964820}
 --- !u!114 &6013501825983707341
 MonoBehaviour:
   m_ObjectHideFlags: 0

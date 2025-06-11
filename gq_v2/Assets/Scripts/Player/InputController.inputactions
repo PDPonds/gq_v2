@@ -24,9 +24,54 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Run",
+                    "name": "Skill_1",
                     "type": "Button",
-                    "id": "8128a869-1b1a-416a-9635-bf753d638541",
+                    "id": "1ab9ab07-6b6e-406c-8560-b4c689e65a7d",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Skill_2",
+                    "type": "Button",
+                    "id": "3f38ff67-1871-4c9a-a649-77b5ceda5639",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Skill_3",
+                    "type": "Button",
+                    "id": "76b0849d-6753-45ea-9a0b-e26037297026",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Skill_4",
+                    "type": "Button",
+                    "id": "02bc6972-df1b-45da-bfe3-1345e66afc82",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Skill_5",
+                    "type": "Button",
+                    "id": "28f0c9a5-6a5f-4684-a8c0-4fbf3f9bc680",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "MousePosition",
+                    "type": "PassThrough",
+                    "id": "4f7c2f1c-a3e8-47c5-9d52-54e1c72ab4a7",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -102,12 +147,67 @@
                 },
                 {
                     "name": "",
-                    "id": "13ab9a78-0ee7-43e1-9638-d58669ce3fa1",
-                    "path": "<Keyboard>/shift",
+                    "id": "5784e04e-de64-4fdd-9713-1d3389c42837",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Run",
+                    "action": "Skill_1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cedf6f8f-7811-4aea-8a19-f994d6004992",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Skill_2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ebdfcd2b-afb4-4361-9058-90c3680c3d3c",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Skill_3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ad311bbc-adc3-43a7-8c53-b61626b1fba0",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Skill_4",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "531ec9ad-2b46-4ed5-9ae0-e95ae4e51bfa",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MousePosition",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e7a41d97-d6bc-40ee-8c9d-7de5997417b1",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Skill_5",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

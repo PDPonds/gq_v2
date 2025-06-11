@@ -12,9 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 879ad7d9e04b3a648af96167a3a82807, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
-  walkSpeed: 3
-  runSpeed: 5
-  rotationSpeed: 10
+  walkSpeed: 5
+  rotationSpeed: 15
   dashDelay: 0.5
-  dashDuration: 0.3
-  dashForce: 0.25
+  dashDuration: 0.2
+  dashForce: 0.5
+  skill_1: {fileID: 11400000, guid: 661345e6488184840a64a152adf9cd8e, type: 2}
+  skill_2: {fileID: 11400000, guid: 661345e6488184840a64a152adf9cd8e, type: 2}
+  skill_3: {fileID: 11400000, guid: 661345e6488184840a64a152adf9cd8e, type: 2}
+  skill_4: {fileID: 11400000, guid: 661345e6488184840a64a152adf9cd8e, type: 2}
+  skill_5: {fileID: 11400000, guid: 661345e6488184840a64a152adf9cd8e, type: 2}
