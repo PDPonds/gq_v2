@@ -12,6 +12,5 @@ public enum InitSkillPosition
 
 public class GameManager : Singleton<GameManager>
 {
-    [Header("===== Mouse =====")]
-    public LayerMask mousePositionMask;
+
 }

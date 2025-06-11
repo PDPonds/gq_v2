@@ -5,11 +5,15 @@ using UnityEngine;
 
 public class SkillSO : ScriptableObject
 {
-    public float skillDelay;
-    public List<Skill_Visual_Property> skill_Property = new List<Skill_Visual_Property>();
     public SkillType Type;
     [HideInInspector] public int activateCount;
-
+    [Header("===== Delay =====")]
+    public float skillDelay;
+    [Header("===== Propertyu =====")]
+    public List<Skill_Visual_Property> skill_Property = new List<Skill_Visual_Property>();
+    [Header("===== Aim assist =====")]
+    public bool aimAssist;
+    public float aimAssistRange;
 }
 
 [Serializable]

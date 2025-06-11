@@ -18,5 +18,6 @@ public class PlayerDatas : ScriptableObject
     public SkillSO skill_3;
     public SkillSO skill_4;
     public SkillSO skill_5;
-
+    [Header("===== AimAssist =====")]
+    public LayerMask aimAssisMark;
 }

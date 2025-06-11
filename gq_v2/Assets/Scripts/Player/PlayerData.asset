@@ -22,3 +22,6 @@ MonoBehaviour:
   skill_3: {fileID: 11400000, guid: 661345e6488184840a64a152adf9cd8e, type: 2}
   skill_4: {fileID: 11400000, guid: 661345e6488184840a64a152adf9cd8e, type: 2}
   skill_5: {fileID: 11400000, guid: 661345e6488184840a64a152adf9cd8e, type: 2}
+  aimAssisMark:
+    serializedVersion: 2
+    m_Bits: 128

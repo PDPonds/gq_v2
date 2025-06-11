@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Events;
@@ -358,8 +359,29 @@ public class PlayerManager : Singleton<PlayerManager>
         AnimatorOverrideController animationController = property.animationController;
         InitSkillPosition intiPosition = property.intiPosition;
         Transform spawnPosition = GetSkillPosition(intiPosition);
-        Vector3 dir = GetMouseDirection();
-        if (dir == Vector3.zero) dir = transform.forward;
+
+        Vector3 dir = Vector3.zero;
+        if (skill.aimAssist)
+        {
+            Collider[] cols = Physics.OverlapSphere(transform.position, skill.aimAssistRange, data.aimAssisMark);
+            if (cols.Length > 0)
+            {
+                Collider nearEnemy = GetNearEnemy(cols);
+                Vector3 tempDir = (nearEnemy.transform.position - transform.position);
+                dir.y = 0;
+                dir = tempDir.normalized;
+            }
+            else
+            {
+                dir = GetMouseDirection();
+                if (dir == Vector3.zero) dir = transform.forward;
+            }
+        }
+        else
+        {
+            dir = GetMouseDirection();
+            if (dir == Vector3.zero) dir = transform.forward;
+        }
 
         anim.runtimeAnimatorController = animationController;
         anim.Play("Skill");
@@ -368,7 +390,8 @@ public class PlayerManager : Singleton<PlayerManager>
 
         StartCoroutine(StopMoveAttack(property.skillDuration));
         StartCoroutine(AddForceAttack(dir, skillForce, duration));
-        StartCoroutine(InitParticle(() => {
+        StartCoroutine(InitParticle(() =>
+        {
             GameObject particleObj = Instantiate(particlePrefab, spawnPosition.position, Quaternion.identity);
             if (skill is Skill_Projectile projectile)
             {
@@ -387,7 +410,7 @@ public class PlayerManager : Singleton<PlayerManager>
             {
 
             }
-        },property.initPrefabTime));
+        }, property.initPrefabTime));
 
         int propertyCount = skill.skill_Property.Count;
         if (skill.activateCount >= propertyCount - 1) skill.activateCount = 0;
@@ -395,6 +418,29 @@ public class PlayerManager : Singleton<PlayerManager>
 
     }
 
+    Collider GetNearEnemy(Collider[] allEnemy)
+    {
+        Collider nearEnemy = null;
+        if (allEnemy != null && allEnemy.Length > 0)
+        {
+            for (int i = 0; i < allEnemy.Length; i++)
+            {
+                if (nearEnemy != null)
+                {
+                    float eDist = Vector3.Distance(allEnemy[i].transform.position, transform.position);
+                    if (eDist < Vector3.Distance(nearEnemy.transform.position, transform.position))
+                    {
+                        nearEnemy = allEnemy[i];
+                    }
+                }
+                else
+                {
+                    nearEnemy = allEnemy[i];
+                }
+            }
+        }
+        return nearEnemy;
+    }
 
     public Transform GetSkillPosition(InitSkillPosition posType)
     {
@@ -412,5 +458,11 @@ public class PlayerManager : Singleton<PlayerManager>
     }
 
     #endregion
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, 3);
+    }
 
 }

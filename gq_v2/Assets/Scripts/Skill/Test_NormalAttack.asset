@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a3a1f42bf3fdfb418b3f74d7e2d1178, type: 3}
   m_Name: Test_NormalAttack
   m_EditorClassIdentifier: 
+  Type: 0
+  activateCount: 0
   skillDelay: 0.5
   skill_Property:
   - particle: {fileID: 3676509547047880254, guid: 1d63610bc26a52643a4904f459435445, type: 3}
@@ -28,7 +30,7 @@ MonoBehaviour:
     intiPosition: 0
     skillForceDuration: 0.25
     skillForce: 0.15
-  Type: 0
-  activateCount: 0
+  aimAssist: 1
+  aimAssistRange: 3
   projectileSpeed: 100
   projectileDuration: 5
