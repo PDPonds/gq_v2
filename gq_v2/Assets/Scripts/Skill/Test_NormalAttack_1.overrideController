@@ -7,7 +7,7 @@ AnimatorOverrideController:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Test_NormalAttack_1
-  m_Controller: {fileID: 9100000, guid: ecb9f3d31b45b0146a2bc3c41131709d, type: 2}
+  m_Controller: {fileID: 9100000, guid: e7d2d591f6d9b724bbfbdb7d8faa1f47, type: 2}
   m_Clips:
-  - m_OriginalClip: {fileID: -203655887218126122, guid: 95f0f2e27c72625448b8d2594be8f334, type: 3}
-    m_OverrideClip: {fileID: -203655887218126122, guid: 95f0f2e27c72625448b8d2594be8f334, type: 3}
+  - m_OriginalClip: {fileID: -623603649343465320, guid: 15e43725506240c478b01e8a2432e046, type: 3}
+    m_OverrideClip: {fileID: -623603649343465320, guid: 15e43725506240c478b01e8a2432e046, type: 3}
