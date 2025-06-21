@@ -8,6 +8,8 @@ public class PlayerDatas : ScriptableObject
     public float walkSpeed;
     [Header("===== Rotation =====")]
     public float rotationSpeed;
+    [Header("===== Action Buffer =====")]
+    public float buffetDuration;
     [Header("===== Dash =====")]
     public float dashDelay;
     public float dashDuration;

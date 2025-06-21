@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
@@ -31,6 +32,8 @@ public class PlayerManager : Singleton<PlayerManager>
     float curSkill_3_Delay;
     float curSkill_4_Delay;
     float curSkill_5_Delay;
+
+    Queue<UnityAction> bufferQueue = new Queue<UnityAction>();
 
     [Header("===== Init Skill Position =====")]
     [SerializeField] Transform Hand_Skill_Position;
@@ -166,6 +169,11 @@ public class PlayerManager : Singleton<PlayerManager>
             rb.freezeRotation = true;
             anim.SetBool("isAddForceState", false);
             isAction = false;
+            if (bufferQueue.Count > 0)
+            {
+                UnityAction action = bufferQueue.Dequeue();
+                action?.Invoke();
+            }
         }
 
     }
@@ -189,7 +197,13 @@ public class PlayerManager : Singleton<PlayerManager>
         }
         else
         {
-
+            if (bufferQueue.Count <= 0)
+                bufferQueue.Enqueue(DashPerformed);
+            else
+            {
+                bufferQueue.Dequeue();
+                bufferQueue.Enqueue(DashPerformed);
+            }
         }
     }
 
@@ -221,7 +235,13 @@ public class PlayerManager : Singleton<PlayerManager>
         }
         else
         {
-
+            if (bufferQueue.Count <= 0)
+                bufferQueue.Enqueue(UseSkill_1);
+            else
+            {
+                bufferQueue.Dequeue();
+                bufferQueue.Enqueue(UseSkill_1);
+            }
         }
     }
 
@@ -237,7 +257,13 @@ public class PlayerManager : Singleton<PlayerManager>
         }
         else
         {
-
+            if (bufferQueue.Count <= 0)
+                bufferQueue.Enqueue(UseSkill_2);
+            else
+            {
+                bufferQueue.Dequeue();
+                bufferQueue.Enqueue(UseSkill_2);
+            }
         }
     }
 
@@ -253,7 +279,13 @@ public class PlayerManager : Singleton<PlayerManager>
         }
         else
         {
-
+            if (bufferQueue.Count <= 0)
+                bufferQueue.Enqueue(UseSkill_3);
+            else
+            {
+                bufferQueue.Dequeue();
+                bufferQueue.Enqueue(UseSkill_3);
+            }
         }
     }
 
@@ -268,7 +300,13 @@ public class PlayerManager : Singleton<PlayerManager>
             }
             else
             {
-
+                if (bufferQueue.Count <= 0)
+                    bufferQueue.Enqueue(UseSkill_4);
+                else
+                {
+                    bufferQueue.Dequeue();
+                    bufferQueue.Enqueue(UseSkill_4);
+                }
             }
         }
     }
@@ -285,7 +323,13 @@ public class PlayerManager : Singleton<PlayerManager>
         }
         else
         {
-
+            if (bufferQueue.Count <= 0)
+                bufferQueue.Enqueue(UseSkill_5);
+            else
+            {
+                bufferQueue.Dequeue();
+                bufferQueue.Enqueue(UseSkill_5);
+            }
         }
     }
 
@@ -373,6 +417,11 @@ public class PlayerManager : Singleton<PlayerManager>
         }
         yield return null;
         isAction = false;
+        if (bufferQueue.Count > 0)
+        {
+            UnityAction action = bufferQueue.Dequeue();
+            action?.Invoke();
+        }
     }
 
     IEnumerator InitParticle(SkillSO skill, GameObject prefab, Transform spawnPos, float duration, Vector3 dir, float knockbackForce, float knockbackDuration)
