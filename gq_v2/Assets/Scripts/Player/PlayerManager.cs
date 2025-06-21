@@ -1,10 +1,7 @@
 using System;
 using System.Collections;
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Events;
-using static UnityEditor.PlayerSettings;
 
 public class PlayerManager : Singleton<PlayerManager>
 {
@@ -26,7 +23,7 @@ public class PlayerManager : Singleton<PlayerManager>
 
     Vector3 moveDir;
     float curSpeed;
-    bool isAddForceState;
+    bool isAction;
     float curDashDelay;
 
     float curSkill_1_Delay;
@@ -96,7 +93,7 @@ public class PlayerManager : Singleton<PlayerManager>
 
     void MoveHandle()
     {
-        if (!isAddForceState)
+        if (!isAction)
         {
             moveDir = Camera.main.transform.forward * moveInput.y;
             moveDir = moveDir + Camera.main.transform.right * moveInput.x;
@@ -115,7 +112,7 @@ public class PlayerManager : Singleton<PlayerManager>
 
     void RotationHandle()
     {
-        if (!isAddForceState)
+        if (!isAction)
         {
             Vector3 targetDir = Vector3.zero;
             targetDir = Camera.main.transform.forward * moveInput.y;
@@ -143,7 +140,7 @@ public class PlayerManager : Singleton<PlayerManager>
 
     void MoveAnimationHandle()
     {
-        if (!isAddForceState)
+        if (!isAction)
         {
             if (moveInput != Vector2.zero) anim.SetFloat("MoveSpeed", 1);
             else anim.SetFloat("MoveSpeed", 0);
@@ -152,44 +149,47 @@ public class PlayerManager : Singleton<PlayerManager>
 
     IEnumerator Dash(Vector3 dir, float force, float duration)
     {
-        if (!isAddForceState && dir != Vector3.zero)
+        if (dir != Vector3.zero)
         {
-            float startTime = Time.time;
             rb.linearVelocity = Vector3.zero;
-            while (Time.time < startTime + duration)
-            {
-                rb.constraints = RigidbodyConstraints.FreezePositionY;
-                rb.freezeRotation = true;
-                rb.AddForce(dir * force, ForceMode.Impulse);
-                isAddForceState = true;
-                anim.SetBool("isAddForceState", true);
-                LookAt(transform.position + dir);
-                yield return null;
-            }
+            rb.constraints = RigidbodyConstraints.FreezePositionY;
+            rb.freezeRotation = true;
+            rb.linearVelocity = dir * force;
+            isAction = true;
+            anim.SetBool("isAddForceState", true);
+            LookAt(transform.position + dir);
 
-            yield return null;
+            yield return new WaitForSeconds(duration);
+
             rb.linearVelocity = Vector3.zero;
             rb.constraints = RigidbodyConstraints.None;
             rb.freezeRotation = true;
             anim.SetBool("isAddForceState", false);
-            isAddForceState = false;
+            isAction = false;
         }
 
     }
 
     void DashPerformed()
     {
-        if (curDashDelay <= 0)
+        if (!isAction)
         {
-            Vector3 dir = Vector3.zero;
-            dir = Camera.main.transform.forward * moveInput.y;
-            dir = dir + Camera.main.transform.right * moveInput.x;
-            dir.Normalize();
-            dir.y = 0;
-            if (dir == Vector3.zero) dir = transform.forward;
-            LookAt(transform.position + dir);
-            StartCoroutine(Dash(dir, data.dashForce, data.dashDuration));
-            curDashDelay = data.dashDelay;
+            if (curDashDelay <= 0)
+            {
+                Vector3 dir = Vector3.zero;
+                dir = Camera.main.transform.forward * moveInput.y;
+                dir = dir + Camera.main.transform.right * moveInput.x;
+                dir.Normalize();
+                dir.y = 0;
+                if (dir == Vector3.zero) dir = transform.forward;
+                LookAt(transform.position + dir);
+                StartCoroutine(Dash(dir, data.dashForce, data.dashDuration));
+                curDashDelay = data.dashDelay;
+            }
+        }
+        else
+        {
+
         }
     }
 
@@ -211,46 +211,81 @@ public class PlayerManager : Singleton<PlayerManager>
 
     void UseSkill_1()
     {
-        if (data.skill_1 != null && !isAddForceState && curSkill_1_Delay == 0)
+        if (!isAction)
         {
-            ActivateSkill(data.skill_1);
-            curSkill_1_Delay = data.skill_1.skillDelay;
+            if (data.skill_1 != null && !isAction && curSkill_1_Delay == 0)
+            {
+                ActivateSkill(data.skill_1);
+                curSkill_1_Delay = data.skill_1.skillDelay;
+            }
+        }
+        else
+        {
+
         }
     }
 
     void UseSkill_2()
     {
-        if (data.skill_2 != null && !isAddForceState && curSkill_2_Delay == 0)
+        if (!isAction)
         {
-            ActivateSkill(data.skill_2);
-            curSkill_2_Delay = data.skill_2.skillDelay;
+            if (data.skill_2 != null && !isAction && curSkill_2_Delay == 0)
+            {
+                ActivateSkill(data.skill_2);
+                curSkill_2_Delay = data.skill_2.skillDelay;
+            }
+        }
+        else
+        {
+
         }
     }
 
     void UseSkill_3()
     {
-        if (data.skill_3 != null && !isAddForceState && curSkill_3_Delay == 0)
+        if (!isAction)
         {
-            ActivateSkill(data.skill_3);
-            curSkill_3_Delay = data.skill_3.skillDelay;
+            if (data.skill_3 != null && !isAction && curSkill_3_Delay == 0)
+            {
+                ActivateSkill(data.skill_3);
+                curSkill_3_Delay = data.skill_3.skillDelay;
+            }
+        }
+        else
+        {
+
         }
     }
 
     void UseSkill_4()
     {
-        if (data.skill_4 != null && !isAddForceState && curSkill_4_Delay == 0)
+        if (!isAction)
         {
-            ActivateSkill(data.skill_4);
-            curSkill_4_Delay = data.skill_4.skillDelay;
+            if (data.skill_4 != null && !isAction && curSkill_4_Delay == 0)
+            {
+                ActivateSkill(data.skill_4);
+                curSkill_4_Delay = data.skill_4.skillDelay;
+            }
+            else
+            {
+
+            }
         }
     }
 
     void UseSkill_5()
     {
-        if (data.skill_5 != null && !isAddForceState && curSkill_5_Delay == 0)
+        if (!isAction)
         {
-            ActivateSkill(data.skill_5);
-            curSkill_5_Delay = data.skill_5.skillDelay;
+            if (data.skill_5 != null && curSkill_5_Delay == 0)
+            {
+                ActivateSkill(data.skill_5);
+                curSkill_5_Delay = data.skill_5.skillDelay;
+            }
+        }
+        else
+        {
+
         }
     }
 
@@ -315,18 +350,14 @@ public class PlayerManager : Singleton<PlayerManager>
 
     IEnumerator AddForceAttack(Vector3 dir, float force, float duration)
     {
-        float startTime = Time.time;
         rb.linearVelocity = Vector3.zero;
-        while (Time.time < startTime + duration)
-        {
-            rb.constraints = RigidbodyConstraints.FreezePositionY;
-            rb.freezeRotation = true;
-            rb.AddForce(dir * force, ForceMode.Impulse);
-            LookAt(transform.position + dir);
-            yield return null;
-        }
+        rb.constraints = RigidbodyConstraints.FreezePositionY;
+        rb.freezeRotation = true;
+        rb.AddForce(dir * force, ForceMode.Impulse);
+        LookAt(transform.position + dir);
 
-        yield return null;
+        yield return new WaitForSeconds(duration);
+
         rb.linearVelocity = Vector3.zero;
         rb.constraints = RigidbodyConstraints.None;
         rb.freezeRotation = true;
@@ -337,17 +368,39 @@ public class PlayerManager : Singleton<PlayerManager>
         float startTime = Time.time;
         while (Time.time < startTime + duration)
         {
-            isAddForceState = true;
+            isAction = true;
             yield return null;
         }
         yield return null;
-        isAddForceState = false;
+        isAction = false;
     }
 
-    IEnumerator InitParticle(UnityAction action, float duration)
+    IEnumerator InitParticle(SkillSO skill, GameObject prefab, Transform spawnPos, float duration, Vector3 dir, float knockbackForce, float knockbackDuration)
     {
         yield return new WaitForSeconds(duration);
-        action?.Invoke();
+        InitParticle(skill, prefab, spawnPos, dir, knockbackForce, knockbackDuration);
+    }
+
+    void InitParticle(SkillSO skill, GameObject prefab, Transform spawnPos, Vector3 dir, float knockbackForce, float knockbackDuration)
+    {
+        GameObject particleObj = Instantiate(prefab, spawnPos.position, Quaternion.identity);
+        if (skill is Skill_Projectile projectile)
+        {
+            Projectile_Object projectile_Object = particleObj.GetComponent<Projectile_Object>();
+            projectile_Object.SetupProjectile(skill.skillDamage, projectile.projectileSpeed, projectile.projectileDuration, dir, knockbackForce, knockbackDuration);
+        }
+        else if (skill is Skill_BuffPlayer buffPlayer)
+        {
+
+        }
+        else if (skill is Skill_AOE_AroundMask aroundMask)
+        {
+
+        }
+        else if (skill is Skill_AOE_AroundPlayer aroundPlayer)
+        {
+
+        }
     }
 
     void ActivateSkill(SkillSO skill)
@@ -390,27 +443,7 @@ public class PlayerManager : Singleton<PlayerManager>
 
         StartCoroutine(StopMoveAttack(property.skillDuration));
         StartCoroutine(AddForceAttack(dir, skillForce, duration));
-        StartCoroutine(InitParticle(() =>
-        {
-            GameObject particleObj = Instantiate(particlePrefab, spawnPosition.position, Quaternion.identity);
-            if (skill is Skill_Projectile projectile)
-            {
-                Projectile_Object projectile_Object = particleObj.GetComponent<Projectile_Object>();
-                projectile_Object.SetupProjectile(skill.skillDamage, projectile.projectileSpeed, projectile.projectileDuration, dir, property.knockbackForce, property.knockbackDuration);
-            }
-            else if (skill is Skill_BuffPlayer buffPlayer)
-            {
-
-            }
-            else if (skill is Skill_AOE_AroundMask aroundMask)
-            {
-
-            }
-            else if (skill is Skill_AOE_AroundPlayer aroundPlayer)
-            {
-
-            }
-        }, property.initPrefabTime));
+        StartCoroutine(InitParticle(skill, particlePrefab, spawnPosition, property.initPrefabTime, dir, property.knockbackForce, property.knockbackDuration));
 
         int propertyCount = skill.skill_Property.Count;
         if (skill.activateCount >= propertyCount - 1) skill.activateCount = 0;

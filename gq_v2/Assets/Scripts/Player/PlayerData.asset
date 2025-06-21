@@ -16,7 +16,7 @@ MonoBehaviour:
   rotationSpeed: 15
   dashDelay: 0.5
   dashDuration: 0.2
-  dashForce: 0.5
+  dashForce: 10
   skill_1: {fileID: 11400000, guid: 661345e6488184840a64a152adf9cd8e, type: 2}
   skill_2: {fileID: 11400000, guid: 661345e6488184840a64a152adf9cd8e, type: 2}
   skill_3: {fileID: 11400000, guid: 661345e6488184840a64a152adf9cd8e, type: 2}
