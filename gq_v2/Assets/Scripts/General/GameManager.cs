@@ -7,7 +7,17 @@ public enum SkillType
 
 public enum InitSkillPosition
 {
-    Hand , Body
+    Hand, Body
+}
+
+public enum aiBehavior
+{
+    Idle, Chase, ChangeAttack, Attack, Death
+}
+
+public enum AIType
+{
+    Peaceful, Defensive, Aggressive
 }
 
 public class GameManager : Singleton<GameManager>
