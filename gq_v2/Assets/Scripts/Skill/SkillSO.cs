@@ -13,9 +13,6 @@ public class SkillSO : ScriptableObject
     public float skillDelay;
     [Header("===== Propertyu =====")]
     public List<Skill_Visual_Property> skill_Property = new List<Skill_Visual_Property>();
-    [Header("===== Aim assist =====")]
-    public bool aimAssist;
-    public float aimAssistRange;
 }
 
 [Serializable]

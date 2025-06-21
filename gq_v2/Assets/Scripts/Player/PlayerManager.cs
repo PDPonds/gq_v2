@@ -462,28 +462,8 @@ public class PlayerManager : Singleton<PlayerManager>
         InitSkillPosition intiPosition = property.intiPosition;
         Transform spawnPosition = GetSkillPosition(intiPosition);
 
-        Vector3 dir = Vector3.zero;
-        if (skill.aimAssist)
-        {
-            Collider[] cols = Physics.OverlapSphere(transform.position, skill.aimAssistRange, data.aimAssisMark);
-            if (cols.Length > 0)
-            {
-                Collider nearEnemy = GetNearEnemy(cols);
-                Vector3 tempDir = (nearEnemy.transform.position - transform.position);
-                dir.y = 0;
-                dir = tempDir.normalized;
-            }
-            else
-            {
-                dir = GetMouseDirection();
-                if (dir == Vector3.zero) dir = transform.forward;
-            }
-        }
-        else
-        {
-            dir = GetMouseDirection();
-            if (dir == Vector3.zero) dir = transform.forward;
-        }
+        Vector3 dir = GetMouseDirection();
+        if (dir == Vector3.zero) dir = transform.forward;
 
         anim.runtimeAnimatorController = animationController;
         anim.Play("Skill");
@@ -498,30 +478,6 @@ public class PlayerManager : Singleton<PlayerManager>
         if (skill.activateCount >= propertyCount - 1) skill.activateCount = 0;
         else skill.activateCount++;
 
-    }
-
-    Collider GetNearEnemy(Collider[] allEnemy)
-    {
-        Collider nearEnemy = null;
-        if (allEnemy != null && allEnemy.Length > 0)
-        {
-            for (int i = 0; i < allEnemy.Length; i++)
-            {
-                if (nearEnemy != null)
-                {
-                    float eDist = Vector3.Distance(allEnemy[i].transform.position, transform.position);
-                    if (eDist < Vector3.Distance(nearEnemy.transform.position, transform.position))
-                    {
-                        nearEnemy = allEnemy[i];
-                    }
-                }
-                else
-                {
-                    nearEnemy = allEnemy[i];
-                }
-            }
-        }
-        return nearEnemy;
     }
 
     public Transform GetSkillPosition(InitSkillPosition posType)
