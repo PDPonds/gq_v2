@@ -114,6 +114,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: '[Model]Male'
       objectReference: {fileID: 0}
+    - target: {fileID: 5085882414327900950, guid: 4b3871f91df9a934f93059b9432fa575, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 4b3871f91df9a934f93059b9432fa575, type: 3}
       propertyPath: m_Controller
       value: 
