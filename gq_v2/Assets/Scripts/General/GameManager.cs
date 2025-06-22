@@ -12,12 +12,12 @@ public enum InitSkillPosition
 
 public enum aiBehavior
 {
-    Idle, Chase, ChangeAttack, Attack, Death
+    Idle, Runaway, Chase, ChangeAttack, Attack, TakeDamage, Death
 }
 
 public enum AIType
 {
-    Peaceful, Defensive, Aggressive
+    Peaceful, Defensive, Aggressive , Dummy
 }
 
 public class GameManager : Singleton<GameManager>

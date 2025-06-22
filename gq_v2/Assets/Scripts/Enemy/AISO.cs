@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,6 +7,9 @@ public class AISO : ScriptableObject
 {
     [Header("===== Prefab =====")]
     public GameObject AIPrefab;
+
+    [Header("===== Animation Controller =====")]
+    public AnimatorOverrideController AIAnimator;
 
     [Header("===== HP =====")]
     public int maxHP;
@@ -18,7 +22,14 @@ public class AISO : ScriptableObject
     public float runSpeed;
 
     [Header("===== Skill =====")]
-    public List<SkillSO> Skills = new List<SkillSO>();
+    public List<AISkill> Skills = new List<AISkill>();
 
 
+}
+
+[Serializable]
+public class AISkill
+{
+    public SkillSO skill;
+    public float skillRange;
 }

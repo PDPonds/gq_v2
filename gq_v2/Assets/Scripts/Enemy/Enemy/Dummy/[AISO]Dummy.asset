@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f059b43a2a521d94bb13ab1ceb1a9217, type: 3}
   m_Name: '[AISO]Dummy'
   m_EditorClassIdentifier: 
+  AIPrefab: {fileID: 1544550871064800582, guid: 804c4e9c828717b4484011ea8707e0a3, type: 3}
+  AIAnimator: {fileID: 22100000, guid: 493380413709a234eb5f7b4227bdbc11, type: 2}
   maxHP: 100
-  type: 0
+  type: 3
   walkSpeed: 0
   runSpeed: 0
   Skills: []
