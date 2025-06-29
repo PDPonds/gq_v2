@@ -16,6 +16,10 @@ public class AIController : MonoBehaviour, ICombatable
     NavMeshAgent agent;
     Animator anim;
 
+    float attackDelay;
+    float changeDuration;
+    AISkill currentSkill = new AISkill();
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -25,11 +29,15 @@ public class AIController : MonoBehaviour, ICombatable
 
         anim.runtimeAnimatorController = enemy.AIAnimator;
         curHp = enemy.maxHP;
+
+        RandomSkill(enemy.RandomSkill());
+
     }
 
     private void Update()
     {
         UpdateBehavior();
+        DelayAttack();
     }
 
     public void Heal(int amount)
@@ -40,8 +48,11 @@ public class AIController : MonoBehaviour, ICombatable
     public void TakeDamage(int damage, float knockbackForce, float knockbackDuration)
     {
         curHp -= damage;
-        StartCoroutine(AddForce(-transform.forward, knockbackForce, knockbackDuration));
-        SwitchBehavior(aiBehavior.TakeDamage);
+        if (!isBehavior(aiBehavior.ChangeAttack) && !isBehavior(aiBehavior.Attack))
+        {
+            StartCoroutine(AddForce(-transform.forward, knockbackForce, knockbackDuration));
+            SwitchBehavior(aiBehavior.TakeDamage);
+        }
     }
 
     public void Death()
@@ -57,12 +68,16 @@ public class AIController : MonoBehaviour, ICombatable
         switch (this.behavior)
         {
             case aiBehavior.Idle:
+                agent.speed = enemy.walkSpeed;
                 break;
             case aiBehavior.Runaway:
+                agent.speed = enemy.runSpeed;
                 break;
             case aiBehavior.Chase:
+                agent.speed = enemy.runSpeed;
                 break;
             case aiBehavior.ChangeAttack:
+                changeDuration = currentSkill.skillChangeDuration;
                 break;
             case aiBehavior.Attack:
                 break;
@@ -117,15 +132,32 @@ public class AIController : MonoBehaviour, ICombatable
                 agent.velocity = Vector3.zero;
                 break;
             case aiBehavior.Runaway:
+                agent.velocity = Vector3.zero;
                 break;
             case aiBehavior.Chase:
+
+                float distance = Vector3.Distance(transform.position, PlayerManager.Instance.transform.position);
+                if (distance <= currentSkill.skillRange)
+                {
+                    SwitchBehavior(aiBehavior.ChangeAttack);
+                }
+                else
+                {
+                    agent.SetDestination(PlayerManager.Instance.transform.position);
+                }
 
                 break;
             case aiBehavior.ChangeAttack:
                 agent.velocity = Vector3.zero;
+                changeDuration -= Time.deltaTime;
+                if (changeDuration <= 0)
+                {
+                    SwitchBehavior(aiBehavior.Attack);
+                }
                 break;
             case aiBehavior.Attack:
                 agent.velocity = Vector3.zero;
+                StartCoroutine(ActiveSkill(currentSkill.skill));
                 break;
             case aiBehavior.TakeDamage:
                 agent.velocity = Vector3.zero;
@@ -172,6 +204,32 @@ public class AIController : MonoBehaviour, ICombatable
         float angle = Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg;
 
         transform.rotation = Quaternion.Euler(0f, angle, 0f);
+    }
+
+    void DelayAttack()
+    {
+        if (attackDelay > 0)
+        {
+            attackDelay -= Time.deltaTime;
+            if (attackDelay < 0)
+            {
+                attackDelay = 0;
+            }
+        }
+    }
+
+    void RandomSkill(AISkill skill)
+    {
+        currentSkill.skill = skill.skill;
+        currentSkill.skillRange = skill.skillRange;
+        currentSkill.skillChangeDuration = skill.skillChangeDuration;
+    }
+
+    IEnumerator ActiveSkill(SkillSO skill)
+    {
+        float skillDuration = currentSkill.skill.skill_Property[0].skillDuration;
+        yield return new WaitForSeconds(skillDuration);
+        SwitchBehavior(aiBehavior.Chase);
     }
 
 }

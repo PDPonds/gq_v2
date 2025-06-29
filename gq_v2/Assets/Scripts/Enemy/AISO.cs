@@ -24,6 +24,15 @@ public class AISO : ScriptableObject
     [Header("===== Skill =====")]
     public List<AISkill> Skills = new List<AISkill>();
 
+    public AISkill RandomSkill()
+    {
+        AISkill skill = new AISkill();
+        int index = UnityEngine.Random.Range(0, Skills.Count);
+        skill.skill = Skills[index].skill;
+        skill.skillRange = Skills[index].skillRange;
+        skill.skillChangeDuration = Skills[index].skillChangeDuration;
+        return skill;
+    }
 
 }
 
@@ -32,4 +41,5 @@ public class AISkill
 {
     public SkillSO skill;
     public float skillRange;
+    public float skillChangeDuration;
 }

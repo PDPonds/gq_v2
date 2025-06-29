@@ -5,6 +5,6 @@ public class Skill_BuffPlayer : SkillSO
 {
     public Skill_BuffPlayer()
     {
-        Type = SkillType.BuffPlayer;
+        Type = SkillType.BuffUser;
     }
 }

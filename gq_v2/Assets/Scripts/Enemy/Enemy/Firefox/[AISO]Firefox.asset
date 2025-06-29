@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f059b43a2a521d94bb13ab1ceb1a9217, type: 3}
+  m_Name: '[AISO]Firefox'
+  m_EditorClassIdentifier: 
+  AIPrefab: {fileID: 0}
+  AIAnimator: {fileID: 22100000, guid: e0754a48175606f4d9cb68bbd4f6d41d, type: 2}
+  maxHP: 100
+  type: 1
+  walkSpeed: 5
+  runSpeed: 5
+  Skills:
+  - skill: {fileID: 11400000, guid: 661345e6488184840a64a152adf9cd8e, type: 2}
+    skillRange: 2
+    skillChangeDuration: 1

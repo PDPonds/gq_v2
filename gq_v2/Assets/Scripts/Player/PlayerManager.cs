@@ -35,10 +35,6 @@ public class PlayerManager : Singleton<PlayerManager>
 
     Queue<UnityAction> bufferQueue = new Queue<UnityAction>();
 
-    [Header("===== Init Skill Position =====")]
-    [SerializeField] Transform Hand_Skill_Position;
-    [SerializeField] Transform Body_Skill_Position;
-
     private void OnEnable()
     {
         OnDash += DashPerformed;
@@ -424,15 +420,15 @@ public class PlayerManager : Singleton<PlayerManager>
         }
     }
 
-    IEnumerator InitParticle(SkillSO skill, GameObject prefab, Transform spawnPos, float duration, Vector3 dir, float knockbackForce, float knockbackDuration)
+    IEnumerator InitParticle(SkillSO skill, GameObject prefab, Vector3 spawnPos, float duration, Vector3 dir, float knockbackForce, float knockbackDuration)
     {
         yield return new WaitForSeconds(duration);
         InitParticle(skill, prefab, spawnPos, dir, knockbackForce, knockbackDuration);
     }
 
-    void InitParticle(SkillSO skill, GameObject prefab, Transform spawnPos, Vector3 dir, float knockbackForce, float knockbackDuration)
+    void InitParticle(SkillSO skill, GameObject prefab, Vector3 spawnPos, Vector3 dir, float knockbackForce, float knockbackDuration)
     {
-        GameObject particleObj = Instantiate(prefab, spawnPos.position, Quaternion.identity);
+        GameObject particleObj = Instantiate(prefab, spawnPos, Quaternion.identity);
         if (skill is Skill_Projectile projectile)
         {
             Projectile_Object projectile_Object = particleObj.GetComponent<Projectile_Object>();
@@ -459,8 +455,6 @@ public class PlayerManager : Singleton<PlayerManager>
         Skill_Visual_Property property = skill.skill_Property[skill.activateCount];
         GameObject particlePrefab = property.particle;
         AnimatorOverrideController animationController = property.animationController;
-        InitSkillPosition intiPosition = property.intiPosition;
-        Transform spawnPosition = GetSkillPosition(intiPosition);
 
         Vector3 dir = GetMouseDirection();
         if (dir == Vector3.zero) dir = transform.forward;
@@ -472,7 +466,9 @@ public class PlayerManager : Singleton<PlayerManager>
 
         StartCoroutine(StopMoveAttack(property.skillDuration));
         StartCoroutine(AddForceAttack(dir, skillForce, duration));
-        StartCoroutine(InitParticle(skill, particlePrefab, spawnPosition, property.initPrefabTime, dir, property.knockbackForce, property.knockbackDuration));
+
+        Vector3 intiPosition = transform.TransformPoint(property.intiOffset);
+        StartCoroutine(InitParticle(skill, particlePrefab, intiPosition, property.initPrefabTime, dir, property.knockbackForce, property.knockbackDuration));
 
         int propertyCount = skill.skill_Property.Count;
         if (skill.activateCount >= propertyCount - 1) skill.activateCount = 0;
@@ -480,20 +476,7 @@ public class PlayerManager : Singleton<PlayerManager>
 
     }
 
-    public Transform GetSkillPosition(InitSkillPosition posType)
-    {
-        Transform pos = transform;
-        switch (posType)
-        {
-            case InitSkillPosition.Hand:
-                pos = Hand_Skill_Position;
-                break;
-            case InitSkillPosition.Body:
-                pos = Body_Skill_Position;
-                break;
-        }
-        return pos;
-    }
-
     #endregion
+
+
 }

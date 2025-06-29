@@ -25,7 +25,7 @@ public class Skill_Visual_Property
     public AnimatorOverrideController animationController;
     public float skillDuration;
     [Header("===== Particle Position =====")]
-    public InitSkillPosition intiPosition;
+    public Vector3 intiOffset;
     [Header("===== Skill Force =====")]
     public float skillForceDuration;
     public float skillForce;

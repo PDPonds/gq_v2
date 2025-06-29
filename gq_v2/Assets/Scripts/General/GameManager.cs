@@ -2,12 +2,7 @@ using UnityEngine;
 
 public enum SkillType
 {
-    Projectile, BuffPlayer, AOE_AroundPlayer, AOE_AroundMask
-}
-
-public enum InitSkillPosition
-{
-    Hand, Body
+    Projectile, BuffUser, AOE_AroundUser, AOE_AroundMask
 }
 
 public enum aiBehavior
