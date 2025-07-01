@@ -4,14 +4,12 @@ public class Projectile_Object : MonoBehaviour
 {
     float speed;
     Vector3 dir;
-    Rigidbody rb;
     int damage;
     float knockbackForce;
     float knockbackDuration;
 
     public void SetupProjectile(int damage, float speed, float duration, Vector3 dir, float knockbackForce, float knockbackDuration)
     {
-        rb = GetComponent<Rigidbody>();
         this.damage = damage;
         this.dir = dir;
         this.speed = speed;
@@ -22,7 +20,7 @@ public class Projectile_Object : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.linearVelocity = dir * speed * Time.deltaTime;
+        transform.Translate(dir * speed * Time.deltaTime, Space.World);
     }
 
     private void OnTriggerEnter(Collider other)

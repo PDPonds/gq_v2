@@ -12,10 +12,10 @@ public enum aiBehavior
 
 public enum AIType
 {
-    Peaceful, Defensive, Aggressive , Dummy
+    Peaceful, Defensive, Aggressive, Dummy
 }
 
 public class GameManager : Singleton<GameManager>
 {
-
+    
 }

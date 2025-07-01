@@ -16,9 +16,7 @@ MonoBehaviour:
   AIAnimator: {fileID: 22100000, guid: e0754a48175606f4d9cb68bbd4f6d41d, type: 2}
   maxHP: 100
   type: 1
-  walkSpeed: 5
-  runSpeed: 5
+  walkSpeed: 3
+  runSpeed: 3
   Skills:
-  - skill: {fileID: 11400000, guid: 661345e6488184840a64a152adf9cd8e, type: 2}
-    skillRange: 2
-    skillChangeDuration: 1
+  - {fileID: 11400000, guid: 3c42e525eeaa581478ce0dfc3a3918d9, type: 2}

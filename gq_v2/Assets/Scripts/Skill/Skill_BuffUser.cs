@@ -1,9 +1,9 @@
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Skill/BuffPlayer")]
-public class Skill_BuffPlayer : SkillSO
+public class Skill_BuffUser : SkillSO
 {
-    public Skill_BuffPlayer()
+    public Skill_BuffUser()
     {
         Type = SkillType.BuffUser;
     }

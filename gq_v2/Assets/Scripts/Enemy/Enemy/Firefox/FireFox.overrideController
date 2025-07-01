@@ -7,5 +7,7 @@ AnimatorOverrideController:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: FireFox
-  m_Controller: {fileID: 9100000, guid: e7d2d591f6d9b724bbfbdb7d8faa1f47, type: 2}
-  m_Clips: []
+  m_Controller: {fileID: 9100000, guid: f0abefba5f481d5498e7ff62ce15bd9b, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: -623603649343465320, guid: 0a3ebab4a730bf44985560d11a47d627, type: 3}
+    m_OverrideClip: {fileID: -623603649343465320, guid: 936ae469310ca3545ac3365c3e083059, type: 3}

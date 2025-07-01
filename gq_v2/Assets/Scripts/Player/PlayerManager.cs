@@ -434,7 +434,7 @@ public class PlayerManager : Singleton<PlayerManager>
             Projectile_Object projectile_Object = particleObj.GetComponent<Projectile_Object>();
             projectile_Object.SetupProjectile(skill.skillDamage, projectile.projectileSpeed, projectile.projectileDuration, dir, knockbackForce, knockbackDuration);
         }
-        else if (skill is Skill_BuffPlayer buffPlayer)
+        else if (skill is Skill_BuffUser buffPlayer)
         {
 
         }
@@ -442,7 +442,7 @@ public class PlayerManager : Singleton<PlayerManager>
         {
 
         }
-        else if (skill is Skill_AOE_AroundPlayer aroundPlayer)
+        else if (skill is Skill_AOE_AroundUser aroundPlayer)
         {
 
         }

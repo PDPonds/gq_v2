@@ -26,20 +26,8 @@ public class AISO : ScriptableObject
 
     public AISkill RandomSkill()
     {
-        AISkill skill = new AISkill();
-        int index = UnityEngine.Random.Range(0, Skills.Count);
-        skill.skill = Skills[index].skill;
-        skill.skillRange = Skills[index].skillRange;
-        skill.skillChangeDuration = Skills[index].skillChangeDuration;
-        return skill;
+        return Skills[UnityEngine.Random.Range(0, Skills.Count)];
     }
 
 }
 
-[Serializable]
-public class AISkill
-{
-    public SkillSO skill;
-    public float skillRange;
-    public float skillChangeDuration;
-}

@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
@@ -16,9 +17,14 @@ public class AIController : MonoBehaviour, ICombatable
     NavMeshAgent agent;
     Animator anim;
 
+    float curChangeDuration;
+
     float attackDelay;
-    float changeDuration;
-    AISkill currentSkill = new AISkill();
+    AISkill currentSkill;
+
+    [SerializeField] GameObject change_Projectile;
+    [SerializeField] GameObject change_AOE_AroundUser;
+
 
     private void Awake()
     {
@@ -30,7 +36,7 @@ public class AIController : MonoBehaviour, ICombatable
         anim.runtimeAnimatorController = enemy.AIAnimator;
         curHp = enemy.maxHP;
 
-        RandomSkill(enemy.RandomSkill());
+        currentSkill = enemy.RandomSkill();
 
     }
 
@@ -77,9 +83,11 @@ public class AIController : MonoBehaviour, ICombatable
                 agent.speed = enemy.runSpeed;
                 break;
             case aiBehavior.ChangeAttack:
-                changeDuration = currentSkill.skillChangeDuration;
+                curChangeDuration = currentSkill.changeDuration;
+                InitChangePrefab(currentSkill);
                 break;
             case aiBehavior.Attack:
+                StartCoroutine(ActiveSkill(currentSkill));
                 break;
             case aiBehavior.TakeDamage:
                 StartCoroutine(WaitForAnimationEnd("TakeDamage", Before_TakeDamage, After_TakeDamage));
@@ -137,7 +145,7 @@ public class AIController : MonoBehaviour, ICombatable
             case aiBehavior.Chase:
 
                 float distance = Vector3.Distance(transform.position, PlayerManager.Instance.transform.position);
-                if (distance <= currentSkill.skillRange)
+                if (distance <= currentSkill.skillRange && attackDelay == 0)
                 {
                     SwitchBehavior(aiBehavior.ChangeAttack);
                 }
@@ -149,15 +157,14 @@ public class AIController : MonoBehaviour, ICombatable
                 break;
             case aiBehavior.ChangeAttack:
                 agent.velocity = Vector3.zero;
-                changeDuration -= Time.deltaTime;
-                if (changeDuration <= 0)
+                curChangeDuration -= Time.deltaTime;
+                if (curChangeDuration <= 0)
                 {
                     SwitchBehavior(aiBehavior.Attack);
                 }
                 break;
             case aiBehavior.Attack:
                 agent.velocity = Vector3.zero;
-                StartCoroutine(ActiveSkill(currentSkill.skill));
                 break;
             case aiBehavior.TakeDamage:
                 agent.velocity = Vector3.zero;
@@ -218,18 +225,51 @@ public class AIController : MonoBehaviour, ICombatable
         }
     }
 
-    void RandomSkill(AISkill skill)
+    IEnumerator ActiveSkill(AISkill skill)
     {
-        currentSkill.skill = skill.skill;
-        currentSkill.skillRange = skill.skillRange;
-        currentSkill.skillChangeDuration = skill.skillChangeDuration;
+        InitSkillParticle(currentSkill);
+        yield return new WaitForSeconds(currentSkill.attackDuration);
+        currentSkill = enemy.RandomSkill();
+        attackDelay = skill.skillDelay;
+        SwitchBehavior(aiBehavior.Chase);
     }
 
-    IEnumerator ActiveSkill(SkillSO skill)
+    void InitChangePrefab(AISkill skill)
     {
-        float skillDuration = currentSkill.skill.skill_Property[0].skillDuration;
-        yield return new WaitForSeconds(skillDuration);
-        SwitchBehavior(aiBehavior.Chase);
+        if (skill is AISkill_Projectile projectile)
+        {
+            change_Projectile.SetActive(true);
+            ProjectileChange change = change_Projectile.GetComponent<ProjectileChange>();
+            change.Setup(projectile.projectile_Speed, projectile.projectile_Duration, skill.changeDuration, skill.changeSize);
+        }
+        if (skill is AISkill_AOE_AroundUser AOE_User)
+        {
+            change_AOE_AroundUser.SetActive(true);
+            AreaChange change = change_AOE_AroundUser.GetComponent<AreaChange>();
+            change.Setup(skill.changeDuration, skill.changeSize);
+        }
+    }
+
+    void InitChangeParticle(AISkill skill)
+    {
+        Vector3 initPosition = transform.TransformPoint(skill.changeParticleOffset);
+        GameObject particleObj = Instantiate(skill.changeParticle, initPosition, Quaternion.identity);
+    }
+
+    void InitSkillParticle(AISkill skill)
+    {
+        Vector3 initPosition = transform.TransformPoint(skill.attackParticleOffset);
+        if (skill is AISkill_Projectile projectile)
+        {
+            GameObject particleObj = Instantiate(skill.attackParticle, initPosition, Quaternion.identity);
+            Projectile_Object projectile_Object = particleObj.GetComponent<Projectile_Object>();
+            projectile_Object.SetupProjectile(skill.skillDamage, projectile.projectile_Speed, projectile.projectile_Duration, transform.forward, 0, 0);
+
+        }
+        if (skill is AISkill_AOE_AroundUser aroundUser)
+        {
+
+        }
     }
 
 }

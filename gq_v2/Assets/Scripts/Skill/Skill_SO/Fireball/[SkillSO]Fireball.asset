@@ -35,6 +35,6 @@ MonoBehaviour:
     skillForce: 4
     knockbackForce: 0
     knockbackDuration: 0
-  projectileSpeed: 100
-  projectileDuration: 5
+  projectileSpeed: 10
+  projectileDuration: 2
   hitPrefab: {fileID: 0}
