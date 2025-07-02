@@ -244,13 +244,11 @@ public class AIController : MonoBehaviour, ICombatable
     {
         rb.linearVelocity = Vector3.zero;
         rb.AddForce(dir * force, ForceMode.Impulse);
-        rb.constraints = RigidbodyConstraints.FreezePositionY;
         rb.freezeRotation = true;
         rb.AddForce(dir * force, ForceMode.Impulse);
 
         yield return new WaitForSeconds(duration);
         rb.linearVelocity = Vector3.zero;
-        rb.constraints = RigidbodyConstraints.None;
         rb.freezeRotation = true;
     }
 
