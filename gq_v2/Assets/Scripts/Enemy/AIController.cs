@@ -19,12 +19,15 @@ public class AIController : MonoBehaviour, ICombatable
 
     float curChangeDuration;
 
-    float attackDelay;
+    float delayAttack;
+
+    float skillDelay;
     AISkill currentSkill;
 
     [SerializeField] GameObject change_Projectile;
     [SerializeField] GameObject change_AOE_AroundUser;
 
+    bool canSeePlayer;
 
     private void Awake()
     {
@@ -43,7 +46,7 @@ public class AIController : MonoBehaviour, ICombatable
     private void Update()
     {
         UpdateBehavior();
-        DelayAttack();
+        DelaySkill();
     }
 
     public void Heal(int amount)
@@ -84,6 +87,7 @@ public class AIController : MonoBehaviour, ICombatable
                 break;
             case aiBehavior.ChangeAttack:
                 curChangeDuration = currentSkill.changeDuration;
+                InitChangeParticle(currentSkill);
                 InitChangePrefab(currentSkill);
                 break;
             case aiBehavior.Attack:
@@ -137,6 +141,16 @@ public class AIController : MonoBehaviour, ICombatable
                 {
                     LookAt(PlayerManager.Instance.transform.position);
                 }
+
+                if (enemy.type == AIType.Aggressive)
+                {
+                    FieldOfViewCheck();
+                    if (canSeePlayer)
+                    {
+                        SwitchBehavior(aiBehavior.Chase);
+                    }
+                }
+
                 agent.velocity = Vector3.zero;
                 break;
             case aiBehavior.Runaway:
@@ -145,11 +159,15 @@ public class AIController : MonoBehaviour, ICombatable
             case aiBehavior.Chase:
 
                 float distance = Vector3.Distance(transform.position, PlayerManager.Instance.transform.position);
-                if (distance <= currentSkill.skillRange && attackDelay == 0)
+                if (skillDelay == 0)
                 {
-                    SwitchBehavior(aiBehavior.ChangeAttack);
+                    if (distance <= currentSkill.skillRange)
+                    {
+                        SwitchBehavior(aiBehavior.ChangeAttack);
+                    }
                 }
-                else
+
+                if (distance > enemy.distanceBetweenPlayer)
                 {
                     agent.SetDestination(PlayerManager.Instance.transform.position);
                 }
@@ -173,6 +191,37 @@ public class AIController : MonoBehaviour, ICombatable
                 agent.velocity = Vector3.zero;
                 break;
         }
+    }
+
+    private void FieldOfViewCheck()
+    {
+        if (enemy is AggressiveAISO aggressiveAI)
+        {
+
+            Collider[] rangeChecks = Physics.OverlapSphere(transform.position, aggressiveAI.radius, aggressiveAI.playerMask);
+
+            if (rangeChecks.Length != 0)
+            {
+                Transform target = rangeChecks[0].transform;
+                Vector3 directionToTarget = (target.position - transform.position).normalized;
+
+                if (Vector3.Angle(transform.forward, directionToTarget) < aggressiveAI.angle / 2)
+                {
+                    float distanceToTarget = Vector3.Distance(transform.position, target.position);
+
+                    if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, aggressiveAI.obstructionMask))
+                        canSeePlayer = true;
+                    else
+                        canSeePlayer = false;
+                }
+                else
+                    canSeePlayer = false;
+            }
+            else if (canSeePlayer)
+                canSeePlayer = false;
+
+        }
+
     }
 
     public bool isBehavior(aiBehavior behavior)
@@ -213,14 +262,14 @@ public class AIController : MonoBehaviour, ICombatable
         transform.rotation = Quaternion.Euler(0f, angle, 0f);
     }
 
-    void DelayAttack()
+    void DelaySkill()
     {
-        if (attackDelay > 0)
+        if (skillDelay > 0)
         {
-            attackDelay -= Time.deltaTime;
-            if (attackDelay < 0)
+            skillDelay -= Time.deltaTime;
+            if (skillDelay < 0)
             {
-                attackDelay = 0;
+                skillDelay = 0;
             }
         }
     }
@@ -230,7 +279,7 @@ public class AIController : MonoBehaviour, ICombatable
         InitSkillParticle(currentSkill);
         yield return new WaitForSeconds(currentSkill.attackDuration);
         currentSkill = enemy.RandomSkill();
-        attackDelay = skill.skillDelay;
+        skillDelay = enemy.attackDelay;
         SwitchBehavior(aiBehavior.Chase);
     }
 

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "AI")]
+[CreateAssetMenu(menuName = "AI/AI")]
 public class AISO : ScriptableObject
 {
     [Header("===== Prefab =====")]
@@ -21,7 +21,9 @@ public class AISO : ScriptableObject
     public float walkSpeed;
     public float runSpeed;
 
+    public float distanceBetweenPlayer;
     [Header("===== Skill =====")]
+    public float attackDelay;
     public List<AISkill> Skills = new List<AISkill>();
 
     public AISkill RandomSkill()

@@ -2,9 +2,6 @@ using UnityEngine;
 
 public class AISkill : ScriptableObject
 {
-    [Header("===== Delay =====")]
-    public float skillDelay;
-
     [Header("===== Damage =====")]
     public int skillDamage;
 

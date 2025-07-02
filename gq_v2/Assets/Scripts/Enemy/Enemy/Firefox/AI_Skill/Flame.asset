@@ -15,7 +15,7 @@ MonoBehaviour:
   skillDelay: 5
   skillDamage: 0
   skillRange: 3
-  changeParticle: {fileID: 1544550871064800582, guid: 804c4e9c828717b4484011ea8707e0a3, type: 3}
+  changeParticle: {fileID: 3676509547047880254, guid: 1d63610bc26a52643a4904f459435445, type: 3}
   changeParticleOffset: {x: 0, y: 0, z: 0}
   changeDuration: 1
   changeSize: 0.25

@@ -9,14 +9,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f059b43a2a521d94bb13ab1ceb1a9217, type: 3}
-  m_Name: '[AISO]Firefox'
+  m_Script: {fileID: 11500000, guid: 9f0d3e0b01a47ee419736924bc3791b4, type: 3}
+  m_Name: '[AISO]Firefox 1'
   m_EditorClassIdentifier: 
   AIPrefab: {fileID: 0}
   AIAnimator: {fileID: 22100000, guid: e0754a48175606f4d9cb68bbd4f6d41d, type: 2}
   maxHP: 100
-  type: 1
+  type: 2
   walkSpeed: 3
   runSpeed: 3
+  distanceBetweenPlayer: 0.5
+  attackDelay: 1
   Skills:
   - {fileID: 11400000, guid: 3c42e525eeaa581478ce0dfc3a3918d9, type: 2}
+  radius: 1
+  angle: 90
+  playerMask:
+    serializedVersion: 2
+    m_Bits: 8
+  obstructionMask:
+    serializedVersion: 2
+    m_Bits: 183
